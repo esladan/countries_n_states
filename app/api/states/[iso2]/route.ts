@@ -4,11 +4,11 @@ import { NextResponse } from 'next/server';
 
 export async function GET(
   request: Request,
-  { params }: { params: { iso2: string } }
+  { params }: { params: Promise<{ iso2: string }> }
 ) {
   try {
-    console.log('Received request for states with params:', await params);
     const { iso2 } = await params;
+    console.log('Received request for states with params:', iso2);
     const filePath = join(process.cwd(), 'data', 'states.json');
     const data = await readFile(filePath, 'utf-8');
     const states = JSON.parse(data);
